@@ -1,6 +1,6 @@
 ﻿namespace AttendenceMark;
 
-partial class Form1
+partial class Dashbord
 {
     /// <summary>
     ///  Required designer variable.

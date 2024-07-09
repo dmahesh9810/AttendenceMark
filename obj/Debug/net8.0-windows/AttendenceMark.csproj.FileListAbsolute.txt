@@ -1,0 +1,15 @@
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\bin\Debug\net8.0-windows\AttendenceMark.exe
+C:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\bin\Debug\net8.0-windows\AttendenceMark.deps.json
+C:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\bin\Debug\net8.0-windows\AttendenceMark.runtimeconfig.json
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\bin\Debug\net8.0-windows\AttendenceMark.dll
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\bin\Debug\net8.0-windows\AttendenceMark.pdb
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.AssemblyInfoInputs.cache
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.AssemblyInfo.cs
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.csproj.CoreCompileInputs.cache
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.sourcelink.json
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.dll
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\refint\AttendenceMark.dll
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.pdb
+C:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.genruntimeconfig.cache
+C:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\ref\AttendenceMark.dll
