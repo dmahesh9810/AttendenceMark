@@ -35,9 +35,41 @@ namespace AttendenceMark
                 Width = 100,
             };
 
+            Add.Click += Add_Click;
+
             this.Controls.Add(CourseLbl);
             this.Controls.Add(CourseTxt);
             this.Controls.Add(Add);
+        }
+        private void Add_Click(object? sender, EventArgs e)
+        {
+            string name = CourseTxt.Text;
+
+            // Connection string to your SQL Server database
+            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO Courses (name) VALUES (@Name)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Name", name);
+
+                try
+                {
+                    connection.Open();
+                    int result = command.ExecuteNonQuery();
+
+                    // Check if the insert was successful
+                    if (result < 0)
+                        MessageBox.Show("Error inserting data into Database!");
+                    else
+                        MessageBox.Show("Data successfully inserted!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
         }
     }
 }
