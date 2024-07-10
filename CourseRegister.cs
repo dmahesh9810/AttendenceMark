@@ -71,6 +71,72 @@ namespace AttendenceMark
             this.Controls.Add(CourseFeeLbl);
             this.Controls.Add(CourseFeeTxt);
             this.Controls.Add(Add);
+
+            LoadInstituteData();
+            LoadCourseData();
         }
+        private void LoadInstituteData()
+        {
+            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+            string query = "SELECT name FROM Institutes"; // Adjust the query as needed
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var instituteName = reader["name"] as string;
+                        if (!string.IsNullOrEmpty(instituteName))
+                        {
+                            InstituteTxt.Items.Add(instituteName);
+                        }
+                        else
+                        {
+                            InstituteTxt.Items.Add("Unknown Institute");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while retrieving institutes: " + ex.Message);
+                }
+            }
+        }
+        private void LoadCourseData()
+        {
+            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+            string query = "SELECT name FROM Courses"; // Adjust the query as needed
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var courseName = reader["name"] as string;
+                        if (!string.IsNullOrEmpty(courseName))
+                        {
+                            CourseTxt.Items.Add(courseName);
+                        }
+                        else
+                        {
+                            CourseTxt.Items.Add("Unknown Course");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while retrieving courses: " + ex.Message);
+                }
+            }
+        }
+
     }
 }

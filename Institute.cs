@@ -8,8 +8,8 @@ namespace AttendenceMark
     {
         private Label NameLbl;
         private TextBox NameTxt;
-        private Label QtyLbl;
-        private TextBox Qty;
+        private Label CityLbl;
+        private TextBox City;
         private Button Add;
         public Institute()
         {
@@ -29,13 +29,13 @@ namespace AttendenceMark
                 AutoSize = true,
                 Location = new System.Drawing.Point(210, 70),
             };
-            QtyLbl = new Label
+            CityLbl = new Label
             {
                 Text = "Qty ",
                 AutoSize = true,
                 Location = new System.Drawing.Point(150, 100),
             };
-            Qty = new TextBox
+            City = new TextBox
             {
                 Text = "",
                 AutoSize = true,
@@ -48,12 +48,45 @@ namespace AttendenceMark
                 Location = new System.Drawing.Point(210, 140),
                 Width = 100,
             };
+            Add.Click += Add_Click;
 
             this.Controls.Add(NameLbl);
             this.Controls.Add(NameTxt);
-            this.Controls.Add(QtyLbl);
-            this.Controls.Add(Qty);
+            this.Controls.Add(CityLbl);
+            this.Controls.Add(City);
             this.Controls.Add(Add);
+        }
+        private void Add_Click(object? sender, EventArgs e)
+        {
+            string name = NameTxt.Text;
+            string city = City.Text;
+
+            // Connection string to your SQL Server database
+            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO Institutes (name, city) VALUES (@Name, @City)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Name", name);
+                command.Parameters.AddWithValue("@City", city);
+
+                try
+                {
+                    connection.Open();
+                    int result = command.ExecuteNonQuery();
+
+                    // Check if the insert was successful
+                    if (result < 0)
+                        MessageBox.Show("Error inserting data into Database!");
+                    else
+                        MessageBox.Show("Data successfully inserted!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
         }
     }
 }

@@ -8,8 +8,8 @@ public partial class Dashbord : Form
         InitializeComponent();
 
         this.Text = "Dashboard";
-        this.Width = 800;
-        this.Height = 600;
+        this.Width = 830;
+        this.Height = 630;
 
         dynamicPanel = new Panel();
         dynamicPanel.Location = new System.Drawing.Point(200, 20);
