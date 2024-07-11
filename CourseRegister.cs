@@ -1,5 +1,5 @@
+using System;
 using System.Windows.Forms;
-using Microsoft.VisualBasic;
 using System.Data.SqlClient;
 
 namespace AttendenceMark
@@ -13,6 +13,7 @@ namespace AttendenceMark
         private Label CourseFeeLbl;
         private TextBox CourseFeeTxt;
         private Button Add;
+
         public CourseRegister()
         {
             this.Text = "Course Register";
@@ -64,6 +65,8 @@ namespace AttendenceMark
                 Width = 100,
             };
 
+            Add.Click += new EventHandler(Add_Click); // Event handler for the Add button
+
             this.Controls.Add(InstituteLbl);
             this.Controls.Add(InstituteTxt);
             this.Controls.Add(CourseLbl);
@@ -75,6 +78,7 @@ namespace AttendenceMark
             LoadInstituteData();
             LoadCourseData();
         }
+
         private void LoadInstituteData()
         {
             string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
@@ -106,6 +110,7 @@ namespace AttendenceMark
                 }
             }
         }
+
         private void LoadCourseData()
         {
             string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
@@ -136,6 +141,121 @@ namespace AttendenceMark
                     MessageBox.Show("An error occurred while retrieving courses: " + ex.Message);
                 }
             }
+        }
+
+        private void Add_Click(object sender, EventArgs e)
+        {
+            string instituteName = InstituteTxt.SelectedItem?.ToString();
+            string courseName = CourseTxt.SelectedItem?.ToString();
+            string courseFee = CourseFeeTxt.Text.Trim();
+
+            if (string.IsNullOrEmpty(instituteName) || string.IsNullOrEmpty(courseName) || string.IsNullOrEmpty(courseFee))
+            {
+                MessageBox.Show("Please fill all fields.");
+                return;
+            }
+
+            // Assuming Institute and Course IDs are known or retrieved from the database
+            int instituteId = GetInstituteId(instituteName);
+            int courseId = GetCourseId(courseName);
+
+            if (instituteId == -1 || courseId == -1)
+            {
+                MessageBox.Show("Selected Institute or Course does not exist.");
+                return;
+            }
+
+            // Save course fee data to the database
+            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+            string query = "INSERT INTO course_fee (Institute_ID, Course_ID, Fee) VALUES (@InstituteId, @CourseId, @Fee)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@InstituteId", instituteId);
+                command.Parameters.AddWithValue("@CourseId", courseId);
+                command.Parameters.AddWithValue("@Fee", courseFee);
+
+                try
+                {
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Course fee registered successfully.");
+                        CourseFeeTxt.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to register course fee.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while registering course fee: " + ex.Message);
+                }
+            }
+        }
+
+        private int GetInstituteId(string instituteName)
+        {
+            int instituteId = -1; // Default value if institute is not found
+
+            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+            string query = "SELECT id FROM Institutes WHERE name = @InstituteName";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@InstituteName", instituteName);
+
+                try
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        instituteId = Convert.ToInt32(result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while fetching Institute ID: " + ex.Message);
+                }
+            }
+
+            return instituteId;
+        }
+
+
+        private int GetCourseId(string courseName)
+        {
+            int courseId = -1; // Default value if course is not found
+
+            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+            string query = "SELECT id FROM Courses WHERE name = @CourseName";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@CourseName", courseName);
+
+                try
+                {
+                    connection.Open();
+                    object result = command.ExecuteScalar();
+                    if (result != null)
+                    {
+                        courseId = Convert.ToInt32(result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while fetching Course ID: " + ex.Message);
+                }
+            }
+
+            return courseId;
         }
 
     }
