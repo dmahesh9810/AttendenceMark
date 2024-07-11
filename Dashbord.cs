@@ -1,3 +1,5 @@
+using AttendanceMark;
+
 namespace AttendenceMark;
 
 public partial class Dashbord : Form
@@ -83,8 +85,16 @@ public partial class Dashbord : Form
         student_reg.Location = new System.Drawing.Point(20, 120);
         student_reg.Width = 130;
         student_reg.Click += (sender, e) =>
-        {
-            Login form2 = new Login();
+         {
+            // Create and show Form2 in the panel
+            StudentRegister form2 = new StudentRegister();
+            form2.TopLevel = false;
+            form2.FormBorderStyle = FormBorderStyle.None;
+            form2.Dock = DockStyle.Fill;
+
+            // Clear existing controls in the panel
+            dynamicPanel.Controls.Clear();
+            dynamicPanel.Controls.Add(form2);
             form2.Show();
         };
 

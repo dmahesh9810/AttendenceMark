@@ -21,3 +21,4 @@ c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\bin\Debug\net8.0-windows\
 c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\bin\Debug\net8.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\AttendenceMark.csproj.AssemblyReference.cache
 C:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\obj\Debug\net8.0-windows\Attenden.4A4CE9B2.Up2Date
+c:\Users\Mahesh\Desktop\C Sharp Project\AttendenceMark\bin\Debug\net8.0-windows\QRCoder.dll
