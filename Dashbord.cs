@@ -104,7 +104,14 @@ public partial class Dashbord : Form
         attendence_mark.Width = 130;
         attendence_mark.Click += (sender, e) =>
         {
-            Login form2 = new Login();
+            Attendence form2 = new Attendence();
+            form2.TopLevel = false;
+            form2.FormBorderStyle = FormBorderStyle.None;
+            form2.Dock = DockStyle.Fill;
+
+            // Clear existing controls in the panel
+            dynamicPanel.Controls.Clear();
+            dynamicPanel.Controls.Add(form2);
             form2.Show();
         };
 
