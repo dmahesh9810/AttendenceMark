@@ -25,7 +25,18 @@ public partial class Dashbord : Form
         GroupBox groupBox1 = new GroupBox();
         groupBox1.Text = "User Information";
         groupBox1.Location = new System.Drawing.Point(20, 20);
-        groupBox1.Size = new System.Drawing.Size(170, 280);
+        groupBox1.Size = new System.Drawing.Size(170, 320);
+
+        Button Logout = new Button();
+        Logout.Text = "Logout";
+        Logout.Location = new System.Drawing.Point(20, 280);
+        Logout.Width = 130;
+        Logout.Click += (sender, e) =>
+        {
+            Login form2 = new Login();
+             this.Close();           
+            form2.Show();
+        };
 
 
         Button institute_reg = new Button();
@@ -152,6 +163,7 @@ public partial class Dashbord : Form
         groupBox1.Controls.Add(payment);
         groupBox1.Controls.Add(student);
         groupBox1.Controls.Add(attendence_check);
+        groupBox1.Controls.Add(Logout);
 
         this.Controls.Add(groupBox1);
 

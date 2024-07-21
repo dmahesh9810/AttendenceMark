@@ -89,12 +89,7 @@ namespace AttendenceMark
                     }
                     else
                     {
-                        // temp
-                        Dashbord temp = new Dashbord();
-                        this.Hide();
-                        temp.Show();
-                        // temp
-                        // MessageBox.Show("Invalid username or password.");
+                        MessageBox.Show("Invalid username or password.");
                     }
                 }
             }
