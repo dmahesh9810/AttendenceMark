@@ -142,7 +142,8 @@ public partial class Dashbord : Form
         student.Width = 130;
         student.Click += (sender, e) =>
         {
-            Login form2 = new Login();
+            Student form2 = new Student();
+            this.Hide();
             form2.Show();
         };
 
