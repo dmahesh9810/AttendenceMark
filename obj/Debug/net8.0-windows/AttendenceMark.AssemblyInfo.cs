@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AttendenceMark")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13dcd09a505fef780d9a7bfb26892f4903defb38")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3d868634a58014eb95ac7077902190528f4845f")]
 [assembly: System.Reflection.AssemblyProductAttribute("AttendenceMark")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AttendenceMark")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
