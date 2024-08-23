@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mahesh\\Desktop\\C Sharp Project\\AttendenceMark\\AttendenceMark.csproj": {}
+    "E:\\Desktop backup PC Stuck\\C Sharp Project\\AttendenceMark\\AttendenceMark.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mahesh\\Desktop\\C Sharp Project\\AttendenceMark\\AttendenceMark.csproj": {
+    "E:\\Desktop backup PC Stuck\\C Sharp Project\\AttendenceMark\\AttendenceMark.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mahesh\\Desktop\\C Sharp Project\\AttendenceMark\\AttendenceMark.csproj",
+        "projectUniqueName": "E:\\Desktop backup PC Stuck\\C Sharp Project\\AttendenceMark\\AttendenceMark.csproj",
         "projectName": "AttendenceMark",
-        "projectPath": "C:\\Users\\Mahesh\\Desktop\\C Sharp Project\\AttendenceMark\\AttendenceMark.csproj",
+        "projectPath": "E:\\Desktop backup PC Stuck\\C Sharp Project\\AttendenceMark\\AttendenceMark.csproj",
         "packagesPath": "C:\\Users\\Mahesh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mahesh\\Desktop\\C Sharp Project\\AttendenceMark\\obj\\",
+        "outputPath": "E:\\Desktop backup PC Stuck\\C Sharp Project\\AttendenceMark\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
