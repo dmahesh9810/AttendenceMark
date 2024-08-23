@@ -18,6 +18,7 @@ namespace AttendenceMark
             this.Text = "Login";
             this.Width = 430;
             this.Height = 350;
+            this.BackColor =  Color.AntiqueWhite;
             // Set the maximum and minimum sizes
             this.MaximumSize = new System.Drawing.Size(450, 380); // Set your desired maximum size
             this.MinimumSize = new System.Drawing.Size(400, 320); // Set your desired minimum size
@@ -51,8 +52,13 @@ namespace AttendenceMark
                 Text = "Submit",
                 Location = new System.Drawing.Point(140, 210),
                 Width = this.ClientSize.Width - 280,
+                BackColor = Color.Blue, // Set background color to transparent
+                FlatStyle = FlatStyle.Flat,    // Set flat style
+                ForeColor = Color.White,
                 Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
             };
+
+            Submit.FlatAppearance.BorderSize = 0;
             Submit.Click += Submit_Click;
 
             this.Controls.Add(UserNameLbl);

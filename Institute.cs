@@ -31,7 +31,7 @@ namespace AttendenceMark
             };
             CityLbl = new Label
             {
-                Text = "Qty ",
+                Text = "City ",
                 AutoSize = true,
                 Location = new System.Drawing.Point(150, 100),
             };
