@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace AttendenceMark
@@ -143,59 +144,76 @@ namespace AttendenceMark
             }
         }
 
-        private void Add_Click(object sender, EventArgs e)
+private void Add_Click(object sender, EventArgs e)
+{
+    string instituteName = InstituteTxt.SelectedItem?.ToString();
+    string courseName = CourseTxt.SelectedItem?.ToString();
+    string courseFeeText = CourseFeeTxt.Text.Trim();
+
+    if (string.IsNullOrEmpty(instituteName) || string.IsNullOrEmpty(courseName) || string.IsNullOrEmpty(courseFeeText))
+    {
+        MessageBox.Show("Please fill all fields.");
+        return;
+    }
+
+    if (!decimal.TryParse(courseFeeText, out decimal courseFee))
+    {
+        MessageBox.Show("Invalid course fee amount.");
+        return;
+    }
+
+    int instituteId = GetInstituteId(instituteName);
+    int courseId = GetCourseId(courseName);
+
+    if (instituteId == -1 || courseId == -1)
+    {
+        MessageBox.Show("Selected Institute or Course does not exist.");
+        return;
+    }
+
+    string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+
+    using (SqlConnection connection = new SqlConnection(connectionString))
+    {
+        SqlCommand command = new SqlCommand("InsertCourseFee", connection); // Change procedure name if needed
+        command.CommandType = CommandType.StoredProcedure;
+
+        command.Parameters.AddWithValue("@InstituteId", instituteId);
+        command.Parameters.AddWithValue("@CourseId", courseId);
+        command.Parameters.AddWithValue("@Fee", courseFee);
+
+        try
         {
-            string instituteName = InstituteTxt.SelectedItem?.ToString();
-            string courseName = CourseTxt.SelectedItem?.ToString();
-            string courseFee = CourseFeeTxt.Text.Trim();
+            connection.Open();
+            int rowsAffected = command.ExecuteNonQuery();
 
-            if (string.IsNullOrEmpty(instituteName) || string.IsNullOrEmpty(courseName) || string.IsNullOrEmpty(courseFee))
+            if (rowsAffected < 0)
             {
-                MessageBox.Show("Please fill all fields.");
-                return;
+                MessageBox.Show("Course fee registered successfully.");
+                CourseFeeTxt.Clear();
             }
-
-            // Assuming Institute and Course IDs are known or retrieved from the database
-            int instituteId = GetInstituteId(instituteName);
-            int courseId = GetCourseId(courseName);
-
-            if (instituteId == -1 || courseId == -1)
+            else
             {
-                MessageBox.Show("Selected Institute or Course does not exist.");
-                return;
-            }
-
-            // Save course fee data to the database
-            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
-            string query = "INSERT INTO course_fee (Institute_ID, Course_ID, Fee) VALUES (@InstituteId, @CourseId, @Fee)";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@InstituteId", instituteId);
-                command.Parameters.AddWithValue("@CourseId", courseId);
-                command.Parameters.AddWithValue("@Fee", courseFee);
-
-                try
-                {
-                    connection.Open();
-                    int rowsAffected = command.ExecuteNonQuery();
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Course fee registered successfully.");
-                        CourseFeeTxt.Clear();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Failed to register course fee.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred while registering course fee: " + ex.Message);
-                }
+                MessageBox.Show("Failed to register course fee. No rows affected.");
             }
         }
+        catch (SqlException ex)
+        {
+            MessageBox.Show("SQL Error: " + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("An error occurred while registering course fee: " + ex.Message);
+        }
+    }
+}
+
+
+
+
+
+
+
 
         private int GetInstituteId(string instituteName)
         {
