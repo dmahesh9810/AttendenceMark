@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace AttendenceMark
@@ -42,34 +43,40 @@ namespace AttendenceMark
             this.Controls.Add(Add);
         }
         private void Add_Click(object? sender, EventArgs e)
+{
+    string name = CourseTxt.Text;
+
+    if (string.IsNullOrWhiteSpace(name))
+    {
+        MessageBox.Show("Please enter a course name.");
+        return;
+    }
+
+    string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
+
+    using (SqlConnection connection = new SqlConnection(connectionString))
+    {
+        SqlCommand command = new SqlCommand("InsertCourse", connection);
+        command.CommandType = CommandType.StoredProcedure;
+
+        command.Parameters.AddWithValue("@Name", name);
+
+        try
         {
-            string name = CourseTxt.Text;
-
-            // Connection string to your SQL Server database
-            string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "INSERT INTO Courses (name) VALUES (@Name)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Name", name);
-
-                try
-                {
-                    connection.Open();
-                    int result = command.ExecuteNonQuery();
-
-                    // Check if the insert was successful
-                    if (result < 0)
-                        MessageBox.Show("Error inserting data into Database!");
-                    else
-                        MessageBox.Show("Data successfully inserted!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
+            connection.Open();
+            command.ExecuteNonQuery();
+            MessageBox.Show("Data successfully inserted!");
         }
+        catch (SqlException ex)
+        {
+            MessageBox.Show("SQL Error: " + ex.Message);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("An error occurred: " + ex.Message);
+        }
+    }
+}
+
     }
 }

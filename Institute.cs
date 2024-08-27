@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace AttendenceMark
@@ -61,26 +62,21 @@ namespace AttendenceMark
             string name = NameTxt.Text;
             string city = City.Text;
 
-            // Connection string to your SQL Server database
             string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO Institutes (name, city) VALUES (@Name, @City)";
-                SqlCommand command = new SqlCommand(query, connection);
+                SqlCommand command = new SqlCommand("InsertInstitute", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
                 command.Parameters.AddWithValue("@Name", name);
                 command.Parameters.AddWithValue("@City", city);
 
                 try
                 {
                     connection.Open();
-                    int result = command.ExecuteNonQuery();
-
-                    // Check if the insert was successful
-                    if (result < 0)
-                        MessageBox.Show("Error inserting data into Database!");
-                    else
-                        MessageBox.Show("Data successfully inserted!");
+                    command.ExecuteNonQuery();
+                    MessageBox.Show("Data successfully inserted!");
                 }
                 catch (Exception ex)
                 {
@@ -88,5 +84,8 @@ namespace AttendenceMark
                 }
             }
         }
+
+
+
     }
 }

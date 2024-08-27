@@ -4,6 +4,7 @@ using System.Drawing; // Ensure this namespace is imported
 using System.Drawing.Imaging; // Import the ImageFormat class for saving images
 using QRCoder;
 using System.IO;
+using System.Data;
 using System.Data.SqlClient;
 
 
@@ -266,17 +267,14 @@ namespace AttendanceMark
 
         private void SaveDataToDatabase(dynamic studentData, string fileName)
         {
-            // Replace with your database logic to save student data and QR code file name
-            // Example using SQL Server
-
             string connectionString = "Server=DESKTOP-NSG87D3\\SQLEXPRESS;Database=student_tracking;Integrated Security=True;";
-            string query = "INSERT INTO StudentData (FirstName, LastName, NIC, DateOfBirth, WhatsApp, Caretaker, CaretakerWhatsApp, Institute, Course, Grade, IndexNumber, QRCodeFileName) " +
-                           "VALUES (@FirstName, @LastName, @NIC, @DateOfBirth, @WhatsApp, @Caretaker, @CaretakerWhatsApp, @Institute, @Course, @Grade, @IndexNumber, @QRCodeFileName)";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("SaveStudentData", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+
                     command.Parameters.AddWithValue("@FirstName", studentData.FirstName);
                     command.Parameters.AddWithValue("@LastName", studentData.LastName);
                     command.Parameters.AddWithValue("@NIC", studentData.NIC);
@@ -291,11 +289,10 @@ namespace AttendanceMark
                     command.Parameters.AddWithValue("@QRCodeFileName", fileName);
 
                     connection.Open();
-                    int rowsAffected = command.ExecuteNonQuery();
+                    int returnValue = (int)command.ExecuteScalar(); // Assuming the stored procedure returns a value
                     connection.Close();
 
-                    // Optionally, you can handle success or failure of database operation
-                    if (rowsAffected > 0)
+                    if (returnValue == 0)
                     {
                         MessageBox.Show("Data saved to database successfully.");
                     }
@@ -306,6 +303,7 @@ namespace AttendanceMark
                 }
             }
         }
+
         private string GenerateIndexNumber()
         {
             string indexNumber = "STU_001"; // Default index number format

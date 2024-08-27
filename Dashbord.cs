@@ -153,7 +153,7 @@ public partial class Dashbord : Form
         attendence_check.Width = 130;
         attendence_check.Click += (sender, e) =>
         {
-            Login form2 = new Login();
+            AttendanceCheck form2 = new AttendanceCheck();
             form2.Show();
         };
         groupBox1.Controls.Add(institute_reg);
